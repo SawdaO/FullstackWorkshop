@@ -7,7 +7,8 @@ import TodoButton from "./TodoButton";
 export default function Todo({
   todo: { label, complete = false },
   onComplete,
-  onDelete
+  onDelete,
+  onDupe
 }) {
   return (
     <span
@@ -20,6 +21,7 @@ export default function Todo({
       </TodoButton>
 
       <TodoButton onClick={onDelete}>X</TodoButton>
+      <TodoButton onClick={onDupe}>Dupe</TodoButton>
     </span>
   );
 }

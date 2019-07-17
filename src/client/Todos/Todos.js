@@ -1,19 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from "react";
+import React from "react";
 import Todo from "../Todo/Todo";
 import "./Todos.css";
-// import useTodos from './useTodos'
+import useTodos from './useTodos'
+import TodoButton from "../Todo/TodoButton";
 
 export default function Todos() {
   // Replace useState with useTodos
   // remove parameter (useTodos doesn't take a parameter)
-  const [todos, setTodos] = useState([
-    { label: "Go to Todos.js" },
-    { label: "Replace useState with useTodos" },
-    { label: "remove anything passed into useTotos" },
-    { label: "Uncomment the 'import' statement" },
-    { label: "Refresh the browser" }
-  ]);
+  const [todos, setTodos] = useTodos();
 
   if (todos !== null) {
     return (
@@ -32,9 +27,24 @@ export default function Todos() {
                 ...todos.slice(index + 1)
               ]);
             }}
+            onDupe={()=>{
+              // way1
+              const current_todo = todos[index];
+              const new_todos = [...todos, current_todo];
+              setTodos(new_todos);
+              
+              // way2
+              // const todos2 = todos;
+              // todos2.push(current_todo);
+              // setTodos([...todos2]);
+            }
+            
+            }
+
           />
         ))}
       </div>
+      
     );
   }
 

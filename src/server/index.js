@@ -27,34 +27,24 @@ app.use(bodyParser.json());
 
 app.get("/api/todos", (req, res, next) => {
   // Uncomment the code below
-  // return readTodosFile()
-  //   .then(data => res.send(data))
-  //   .catch(next);
-
-  // And delete the code below
-  return res.send({
-    todos: [
-      { label: "Go to server/index.js" },
-      { label: "find the callback passed to app.get" },
-      { label: "delete the return statemement" },
-      { label: "uncomment the first part" },
-      { label: "profit" }
-    ]
-  });
+  return readTodosFile()
+    .then(data => res.send(data))
+    .catch(next);
+  
 });
 
 app.post("/api/todos", async (req, res, next) => {
-  // if (req.body === undefined) {
-  //   next(`sent bad data for todos to server: "${JSON.stringify(req.body)}"`);
-  //   return;
-  // }
+  if (req.body === undefined) {
+    next(`sent bad data for todos to server: "${JSON.stringify(req.body)}"`);
+    return;
+  }
 
-  // try {
-  //   await writeTodosFile(req.body).catch(next);
-  // } catch (e) {
-  //   next(`failed to write`);
-  //   return;
-  // }
+  try {
+    await writeTodosFile(req.body).catch(next);
+  } catch (e) {
+    next(`failed to write`);
+    return;
+  }
 
   res.end();
 });
